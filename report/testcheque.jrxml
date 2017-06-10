@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="testcheque" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="documentno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     '' AS vtiger_account_accountid,
+     '' AS vtiger_account_account_no,
+     '' AS vtiger_account_parentid,
+     vtiger_account.`otherphone` AS vtiger_account_otherphone,
+     vtiger_account.`email2` AS vtiger_account_email2,
+     vtiger_accountscf.`accountid` AS vtiger_accountscf_accountid,
+     '' AS vtiger_accountscf_cf_646,
+     '' AS vtiger_accountscf_cf_647,
+     '' AS vtiger_accountscf_cf_651,
+     '' AS vtiger_accountscf_cf_652,
+     '' AS vtiger_accountscf_cf_653,
+     '' AS vtiger_accountscf_cf_655,
+     '' AS vtiger_accountscf_cf_656,
+     '' AS vtiger_accountscf_cf_657,
+     '' AS vtiger_accountscf_cf_658,
+     vtiger_ticketcf.`ticketid` AS vtiger_ticketcf_ticketid,
+     '' AS vtiger_ticketcf_cf_641,
+     vtiger_troubletickets.`ticketid` AS vtiger_troubletickets_ticketid,
+     vtiger_troubletickets.`groupname` AS vtiger_troubletickets_groupname,
+     vtiger_troubletickets.`parent_id` AS vtiger_troubletickets_parent_id,
+     vtiger_troubletickets.`product_id` AS vtiger_troubletickets_product_id,
+     '' AS vtiger_accountscf_cf_667,
+     vtiger_crmentity.`crmid` AS vtiger_crmentity_crmid,
+     vtiger_crmentity.`smcreatorid` AS vtiger_crmentity_smcreatorid,
+     vtiger_crmentity.`smownerid` AS vtiger_crmentity_smownerid,
+     vtiger_contactdetails.`contactid` AS vtiger_contactdetails_contactid,
+     vtiger_contactdetails.`contact_no` AS vtiger_contactdetails_contact_no,
+     vtiger_contactdetails.`accountid` AS vtiger_contactdetails_accountid,
+     vtiger_contactdetails.`salutation` AS vtiger_contactdetails_salutation,
+     vtiger_contactdetails.`firstname` AS vtiger_contactdetails_firstname,
+     vtiger_contactdetails.`lastname` AS vtiger_contactdetails_lastname,
+     vtiger_contactdetails.`email` AS vtiger_contactdetails_email,
+     vtiger_contactdetails.`phone` AS vtiger_contactdetails_phone,
+     vtiger_contactdetails.`mobile` AS vtiger_contactdetails_mobile,
+     vtiger_contactscf.`contactid` AS vtiger_contactscf_contactid,
+     vtiger_troubletickets.`solution` AS vtiger_troubletickets_solution,
+     '' AS vtiger_contactscf_cf_668,
+     '' AS vtiger_ticketcf_cf_685,
+     '' AS vtiger_ticketcf_cf_687,
+   	 '' AS vtiger_ticketcf_cf_686,
+   	 vtiger_crmentity.`createdtime` AS vtiger_crmentity_createdtime  ,
+   	 'chequera' AS vtiger_ticketcf_cf_665 ,
+   	 vtiger_troubletickets.`ticket_no` AS vtiger_troubletickets_ticket_no,
+   	 -- CASE WHEN vtiger_ticketcf.`cf_685` <>''THEN vtiger_ticketcf.`cf_685` ELSE
+   	 CONCAT_WS(" ",vtiger_contactdetails.`firstname`,vtiger_contactdetails.`lastname`) AS camposextra,
+   	 vtiger_ticketcf.`cf_765` AS vtiger_ticketcf_cf_666,
+   	 vtiger_troubletickets.`title` AS vtiger_troubletickets_title,
+   	 vtiger_contactscf.`cf_757` AS vtiger_contactscf_cf_669,
+   	 vtiger_contactscf.`cf_761` AS vtiger_contactscf_cf_668,
+   	 vtiger_contactscf.`cf_759` AS vtiger_contactscf_cf_645,
+   	 vtiger_contactscf.`cf_763` AS vtiger_contactscf_cf_670,
+   	 '' AS vtiger_contactscf_cf_671,
+     vtiger_account.`accountname` AS vtiger_account_accountname,
+     vtiger_account.`phone` AS vtiger_account_phone,
+     vtiger_account.`email1` AS vtiger_account_email1
+FROM
+	  vtiger_troubletickets
+	  LEFT JOIN  vtiger_crmentity ON vtiger_troubletickets.`ticketid` = vtiger_crmentity.`crmid`
+	  left JOIN `vtiger_contactdetails` vtiger_contactdetails ON vtiger_troubletickets.contact_id = vtiger_contactdetails.contactid
+	  left JOIN `vtiger_ticketcf` vtiger_ticketcf ON vtiger_troubletickets.`ticketid` = vtiger_ticketcf.`ticketid`
+	  left JOIN `vtiger_contactscf` vtiger_contactscf ON vtiger_contactdetails.`contactid` = vtiger_contactscf.`contactid`
+	  left JOIN `vtiger_account` vtiger_account on vtiger_account.accountid = vtiger_troubletickets.parent_id
+	  left JOIN `vtiger_accountscf` vtiger_accountscf ON vtiger_account.`accountid` = vtiger_accountscf.`accountid`
+	--  left JOIN `vtiger_contactdetails` vtiger_contactdetails ON vtiger_account.`accountid` = vtiger_contactdetails.`accountid`
+   --  INNER JOIN `vtiger_contactdetails` vtiger_contactdetails ON vtiger_account.`accountid` = vtiger_contactdetails.`accountid`
+   --  INNER JOIN `vtiger_troubletickets` vtiger_troubletickets ON vtiger_contactdetails.`contactid` = vtiger_troubletickets.`parent_id`
+ --    INNER JOIN `vtiger_crmentity` vtiger_crmentity ON vtiger_troubletickets.`ticketid` = vtiger_crmentity.`crmid`
+WHERE
+     vtiger_troubletickets.`ticketid` = $P{documentno}]]>
+	</queryString>
+	<field name="camposextra" class="java.lang.String"/>
+	<field name="vtiger_account_accountid" class="java.lang.Integer"/>
+	<field name="vtiger_account_account_no" class="java.lang.String"/>
+	<field name="vtiger_account_accountname" class="java.lang.String"/>
+	<field name="vtiger_account_parentid" class="java.lang.Integer"/>
+	<field name="vtiger_account_phone" class="java.lang.String"/>
+	<field name="vtiger_account_otherphone" class="java.lang.String"/>
+	<field name="vtiger_account_email1" class="java.lang.String"/>
+	<field name="vtiger_account_email2" class="java.lang.String"/>
+	<field name="vtiger_accountscf_accountid" class="java.lang.Integer"/>
+	<field name="vtiger_accountscf_cf_646" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_647" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_651" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_652" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_653" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_655" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_656" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_657" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_658" class="java.lang.String"/>
+	<field name="vtiger_ticketcf_ticketid" class="java.lang.Integer"/>
+	<field name="vtiger_ticketcf_cf_641" class="java.lang.String"/>
+	<field name="vtiger_ticketcf_cf_665" class="java.lang.String"/>
+	<field name="vtiger_ticketcf_cf_666" class="java.math.BigDecimal"/>
+	<field name="vtiger_troubletickets_ticketid" class="java.lang.Integer"/>
+	<field name="vtiger_troubletickets_ticket_no" class="java.lang.String"/>
+	<field name="vtiger_troubletickets_groupname" class="java.lang.String"/>
+	<field name="vtiger_troubletickets_parent_id" class="java.lang.String"/>
+	<field name="vtiger_troubletickets_product_id" class="java.lang.String"/>
+	<field name="vtiger_accountscf_cf_667" class="java.lang.String"/>
+	<field name="vtiger_crmentity_crmid" class="java.lang.Integer"/>
+	<field name="vtiger_crmentity_smcreatorid" class="java.lang.Integer"/>
+	<field name="vtiger_crmentity_smownerid" class="java.lang.Integer"/>
+	<field name="vtiger_crmentity_createdtime" class="java.sql.Timestamp"/>
+	<field name="vtiger_contactdetails_contactid" class="java.lang.Integer"/>
+	<field name="vtiger_contactdetails_contact_no" class="java.lang.String"/>
+	<field name="vtiger_contactdetails_accountid" class="java.lang.Integer"/>
+	<field name="vtiger_contactdetails_salutation" class="java.lang.String"/>
+	<field name="vtiger_contactdetails_firstname" class="java.lang.String"/>
+	<field name="vtiger_contactdetails_lastname" class="java.lang.String"/>
+	<field name="vtiger_contactdetails_email" class="java.lang.String"/>
+	<field name="vtiger_contactdetails_phone" class="java.lang.String"/>
+	<field name="vtiger_contactdetails_mobile" class="java.lang.String"/>
+	<field name="vtiger_contactscf_contactid" class="java.lang.Integer"/>
+	<field name="vtiger_contactscf_cf_645" class="java.lang.String"/>
+	<field name="vtiger_troubletickets_solution" class="java.lang.String"/>
+	<field name="vtiger_troubletickets_title" class="java.lang.String"/>
+	<field name="vtiger_contactscf_cf_668" class="java.lang.String"/>
+	<field name="vtiger_contactscf_cf_669" class="java.lang.String"/>
+	<field name="vtiger_contactscf_cf_670" class="java.lang.String"/>
+	<field name="vtiger_contactscf_cf_671" class="java.lang.String"/>
+	<field name="vtiger_ticketcf_cf_685" class="java.lang.String"/>
+	<field name="vtiger_ticketcf_cf_686" class="java.lang.String"/>
+	<field name="vtiger_ticketcf_cf_687" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="37" width="195" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD DE CHEQUE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="57" width="195" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_ticketcf_cf_686}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="395" y="0" width="158" height="95"/>
+				<imageExpression class="java.lang.String"><![CDATA["logo.gif"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="0" width="52" height="20"/>
+				<textElement/>
+				<text><![CDATA[Chequera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="20" width="52" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="77" y="0" width="202" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_ticketcf_cf_665}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="256" y="20" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Folio]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="356" y="20" width="199" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_troubletickets_ticket_no}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="48" width="555" height="1"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="77" y="20" width="179" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{vtiger_crmentity_createdtime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="2" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="315" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="40" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Importe:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos del Pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="20" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Titular:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="60" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Concepto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="90" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Beneficiario]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="110" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="111" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Depositar en:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="131" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Titular:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="151" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Banco:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="171" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Clabe:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="151" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cuenta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="171" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Sucursal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="190" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tipo de Cuenta:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="210" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="214" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Confirmar Deposito a:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="234" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="254" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Telèfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="274" width="119" height="20"/>
+				<textElement/>
+				<text><![CDATA[Correo de Confirmacion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="294" width="154" height="20"/>
+				<textElement/>
+				<text><![CDATA[Correo de Copia Confirmacion:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="314" width="555" height="1"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="125" y="60" width="430" height="30"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_troubletickets_title}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="125" y="40" width="231" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{vtiger_ticketcf_cf_666}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="254" width="169" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_account_phone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="274" width="151" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_account_email1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="125" y="234" width="430" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_account_accountname}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="171" width="169" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_contactscf_cf_668}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="150" width="169" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_contactscf_cf_669}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="424" y="170" width="145" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_contactscf_cf_670}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="279" y="190" width="244" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_contactscf_cf_671}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="424" y="150" width="131" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_contactscf_cf_645}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="20" width="428" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{camposextra}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="127" y="90" width="428" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{camposextra}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="125" y="130" width="428" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{camposextra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vtiger_ticketcf_cf_687}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="67" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Reviso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Autorizò]]></text>
+			</staticText>
+			<line>
+				<reportElement x="25" y="0" width="200" height="1"/>
+			</line>
+			<line>
+				<reportElement x="295" y="0" width="228" height="1"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>
